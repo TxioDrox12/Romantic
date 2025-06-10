@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Momentos Especiais</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#ff6b6b", secondary: "#ffd8d8" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #fff9f9;
+      }
+      .title {
+        font-family: "Dancing Script", cursive;
+      }
+      .slider-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        margin: 2rem 0;
+      }
+      .slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slide {
+        min-width: 100%;
+        position: relative;
+      }
+      .slide {
+        position: relative;
+      }
+      .slide img {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 16px;
+        transition: transform 0.3s ease;
+      }
+      .slide:hover img {
+        transform: scale(1.02);
+      }
+      .slide-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: white;
+        padding: 2.5rem;
+        text-align: center;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+      }
+      .slide-caption .title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .slide-caption p:not(.title) {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        line-height: 1.6;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      @media (max-width: 768px) {
+        .slide img {
+          height: 400px;
+        }
+        .slide-caption {
+          padding: 1.5rem;
+        }
+        .slide-caption .title {
+          font-size: 1.8rem;
+        }
+        .slide-caption p:not(.title) {
+          font-size: 1rem;
+        }
+      }
+      .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .slider-nav:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+      .prev {
+        left: 15px;
+      }
+      .next {
+        right: 15px;
+      }
+      .slider-dots {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+      }
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .dot.active {
+        background-color: #fff;
+        transform: scale(1.2);
+      }
+      .heart {
+        position: absolute;
+        opacity: 0;
+        animation: float 4s ease-in-out infinite;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        90% {
+          opacity: 0.2;
+        }
+        100% {
+          transform: translateY(-100px) rotate(20deg);
+          opacity: 0;
+        }
+      }
+      @media (max-width: 768px) {
+        .slide img {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8"
+  >
+    <div class="max-w-5xl w-full mx-auto">
+      <h1
+        class="title text-4xl md:text-5xl lg:text-6xl text-center text-primary mb-8 md:mb-12"
+      >
+        Para Minha Amada
+      </h1>
+      <div class="slider-container w-full md:w-[70%] mx-auto relative">
+        <div class="slider">
+          <div class="slide">
+            <img
+              src="images/WhatsApp Image 2025-06-10 at 09.26.10_d9d3c076.jpg"
+              alt="Seu sorriso radiante"
+            />
+            <div class="slide-caption">
+              <p class="title">Seu Estilo Encantador</p>
+              <p>
+                Cada detalhe do seu visual transmite uma elegância única que me
+                cativa todos os dias
+              </p>
+            </div>
+          </div>
+          <div class="slide">
+            <img
+              src="images/WhatsApp Image 2025-06-10 at 09.26.09_5bf710f0.jpg"
+              alt="Momentos de paz"
+            />
+            <div class="slide-caption">
+              <p class="title">Sua Doce Serenidade</p>
+              <p>
+                Admiro sua inteligência e a paz que transmite em cada momento
+              </p>
+            </div>
+          </div>
+          <div class="slide">
+            <img
+              src="images/WhatsApp Image 2025-06-10 at 09.26.10_4221e935.jpg"
+              alt="Risada espontânea"
+            />
+            <div class="slide-caption">
+              <p class="title">Sua Alegria Contagiante</p>
+              <p>Sua risada é a melodia mais bonita que já ouvi</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img
+              src="images/WhatsApp Image 2025-06-10 at 09.26.10_27b2496e.jpg"
+              alt="Momento contemplativo"
+            />
+            <div class="slide-caption">
+              <p class="title">Sua Beleza Natural</p>
+              <p>Cada detalhe seu me encanta mais a cada dia</p>
+            </div>
+          </div>
+        </div>
+        <div class="slider-nav prev">
+          <i class="ri-arrow-left-s-line ri-lg"></i>
+        </div>
+        <div class="slider-nav next">
+          <i class="ri-arrow-right-s-line ri-lg"></i>
+        </div>
+        <div class="slider-dots"></div>
+      </div>
+      <div
+        class="mt-10 md:mt-16 text-center px-4 md:px-16 lg:px-24 max-w-3xl mx-auto"
+      >
+        <p class="title text-2xl md:text-3xl text-primary mb-6">
+          Para a mulher mais especial do mundo
+        </p>
+        <p class="text-gray-700 text-lg md:text-xl leading-relaxed mb-6">
+          Você é a personificação da beleza, da graça e da bondade. Seu sorriso
+          ilumina meus dias, sua inteligência me inspira, e sua presença torna
+          tudo mais especial. Cada pequeno gesto seu me faz te admirar ainda
+          mais.
+        </p>
+        <p class="text-gray-700 text-lg md:text-xl leading-relaxed mb-6">
+          Sua força, determinação e carinho são qualidades que me encantam todos
+          os dias. Você é única e extraordinária em cada detalhe. Ter você em
+          minha vida é o maior presente que poderia receber.
+        </p>
+        <p class="title text-xl md:text-2xl text-primary mt-8">
+          Você é o amor da minha vida!
+        </p>
+        <div class="flex justify-center mt-6">
+          <div class="w-10 h-10 flex items-center justify-center text-primary">
+            <i class="ri-heart-fill ri-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="hearts-container"
+      class="fixed inset-0 pointer-events-none z-10"
+    ></div>
+    <script id="slider-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector(".slider");
+        const slides = document.querySelectorAll(".slide");
+        const prevBtn = document.querySelector(".prev");
+        const nextBtn = document.querySelector(".next");
+        const dotsContainer = document.querySelector(".slider-dots");
+        let currentIndex = 0;
+        let interval;
+        const slideWidth = 100; // percentage
+        // Create dots
+        slides.forEach((_, index) => {
+          const dot = document.createElement("div");
+          dot.classList.add("dot");
+          if (index === 0) dot.classList.add("active");
+          dot.addEventListener("click", () => goToSlide(index));
+          dotsContainer.appendChild(dot);
+        });
+        const dots = document.querySelectorAll(".dot");
+        function goToSlide(index) {
+          if (index < 0) index = slides.length - 1;
+          if (index >= slides.length) index = 0;
+          currentIndex = index;
+          slider.style.transform = `translateX(-${slideWidth * currentIndex}%)`;
+          // Update dots
+          dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === currentIndex);
+          });
+        }
+        function nextSlide() {
+          goToSlide(currentIndex + 1);
+        }
+        function prevSlide() {
+          goToSlide(currentIndex - 1);
+        }
+        // Event listeners
+        prevBtn.addEventListener("click", prevSlide);
+        nextBtn.addEventListener("click", nextSlide);
+        // Auto slide
+        function startAutoSlide() {
+          interval = setInterval(nextSlide, 5000);
+        }
+        function stopAutoSlide() {
+          clearInterval(interval);
+        }
+        // Start auto slide
+        startAutoSlide();
+        // Pause on hover
+        slider.addEventListener("mouseenter", stopAutoSlide);
+        slider.addEventListener("mouseleave", startAutoSlide);
+        // Touch events for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        slider.addEventListener("touchstart", (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+          stopAutoSlide();
+        });
+        slider.addEventListener("touchend", (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+          startAutoSlide();
+        });
+        function handleSwipe() {
+          const difference = touchStartX - touchEndX;
+          if (difference > 50) {
+            nextSlide();
+          } else if (difference < -50) {
+            prevSlide();
+          }
+        }
+      });
+    </script>
+    <script id="hearts-animation">
+      document.addEventListener("DOMContentLoaded", function () {
+        const heartsContainer = document.getElementById("hearts-container");
+        function createHeart() {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerHTML =
+            '<i class="ri-heart-fill" style="color: rgba(255, 107, 107, 0.6); font-size: 20px;"></i>';
+          // Random position
+          const left = Math.random() * 100;
+          heart.style.left = `${left}%`;
+          heart.style.bottom = "0";
+          // Random size
+          const size = Math.random() * 0.5 + 0.5;
+          heart.style.transform = `scale(${size})`;
+          // Random animation duration
+          const duration = Math.random() * 3 + 3;
+          heart.style.animationDuration = `${duration}s`;
+          heartsContainer.appendChild(heart);
+          // Remove heart after animation
+          setTimeout(() => {
+            heart.remove();
+          }, duration * 1000);
+        }
+        // Create hearts periodically
+        setInterval(createHeart, 1000);
+      });
+    </script>
+  </body>
+</html>
